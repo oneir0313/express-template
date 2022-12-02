@@ -1,0 +1,49 @@
+# Express Template
+
+## Three-Tier layer
+* 表現層 (routes)
+    * 用於顯示資訊和接收用戶輸入的資料，為用戶提供一種交互式操作的介面
+* 商業邏輯層 (services)
+    * 商業邏輯層在體系架構中的位置很關鍵，它處於資料存取層與表現層中，起到了數據交換中承上啟下的作用。由於層是一種弱耦合結構，層與層之間的依賴是向下的，底層對於上層而言是「無知」的，改變上層的設計對於其調用的底層而言沒有任何影響
+* 資料存取層 (repositories)
+    * 其功能主要是負責資料庫的訪問，可以訪問資料庫系統、二進位文件、文本文檔或是 XML 文檔。簡單說法就是實現對資料表的查詢、新增、刪除與修改的操作。
+
+
+
+## 檔案結構
+---
+
+```
+app/
+├── config/            # db吉passport設定
+├── node_modules/      # npm函式庫
+├── public/            # 前端靜態資源
+│   ├── image/         # 圖片
+│   ├── javascript/    # js source code
+│   ├── stylesheets/   # css 
+├── repositories/      # ORM 終端接口
+│   ├── migrations/    # DB migrations資料
+│   ├── models/        # DB 模型
+│   ├── seeders/       # DB 初始化資料
+├── route/             # 處裡server的路由
+├── services/          # 處理業務邏輯
+│   ├── models/        # DB 模型
+│   ├── seeders/       # DB 初始化資料
+├── views/             # EJS 前端頁面
+├── tests/             # 單元測試
+├── package.json       # npm專案管理設定檔
+├── routes.js          # npm專案管理設定檔
+└── app.js             # server啟動初始化入口
+```
+
+## Routes 規範
+* Path遵循REST 
+* 檔案與資料夾命名規則採`小駝峰` 
+    * Example: `services/userService`
+
+
+## Todos
+- [ ] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
+- [ ] 單元測試範例 [mocha](https://mochajs.org/)
+- [ ] Optional Proxy
+- [ ] Dockerfile
