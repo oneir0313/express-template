@@ -1,5 +1,15 @@
 # Express Template
 
+# README
+
+## Initialize
+```
+cd app
+npm install
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+npm run start
+```
 ## Three-Tier layer
 * 表現層 (routes)
     * 用於顯示資訊和接收用戶輸入的資料，為用戶提供一種交互式操作的介面
@@ -52,3 +62,4 @@ app/
 - [ ] 單元測試範例 [mocha](https://mochajs.org/)
 - [ ] Optional Proxy
 - [ ] Dockerfile
+git push -u dm3 master
