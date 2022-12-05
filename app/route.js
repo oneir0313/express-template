@@ -6,6 +6,8 @@ const logger = require('morgan')
 
 const pageRouter = require('./routes/page')
 const usersRouter = require('./routes/users')
+const listEndpoints = require('express-list-endpoints')
+const debug = require('debug')('app:routes')
 
 const app = express()
 
@@ -42,5 +44,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
+
+debug(listEndpoints(app))
 
 module.exports = app
