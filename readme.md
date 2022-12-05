@@ -36,8 +36,13 @@ app/
 └── app.js             # server啟動初始化入口
 ```
 
-## Routes 規範
-* Path遵循REST 
+## 命名規範
+* API路徑及名稱遵循Restful，名稱以`小駝峰`
+    * Example: 
+        * 獲得資料     GET      /data
+        * 新增資料     POST     /data
+        * 刪除資料     DELETE   /data/1
+        * 詳細資料     GET      /data/1/dailyDetail  
 * 檔案與資料夾命名規則採`小駝峰` 
     * Example: `services/userService`
 
