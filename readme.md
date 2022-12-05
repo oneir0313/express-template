@@ -10,6 +10,12 @@ npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 npm run start
 ```
+
+## Usage
+
+1. chrome -> http://localhost:9200/page/signin
+2. email/paswsowrd: root@example.com/12345678
+3. (TODO) 前端登入成功 redirect page/index
 ## Three-Tier layer
 * 表現層 (routes)
     * 用於顯示資訊和接收用戶輸入的資料，為用戶提供一種交互式操作的介面
