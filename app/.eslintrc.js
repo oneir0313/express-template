@@ -1,7 +1,9 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    set6: true,
+    jquery: true
   },
   extends: [
     'standard'
