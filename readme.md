@@ -1,7 +1,7 @@
 # Express Template
 
 ## Initialize
-```
+```bash
 cd app
 npm install
 npx sequelize-cli db:migrate
@@ -12,7 +12,7 @@ npm run start
 ## Usage
 
 1. chrome -> http://localhost:9200/page/signin
-2. email/paswsowrd: root@example.com/12345678
+2. email/paswsowrd: admin/1qaz@WSX
 3. 前端登入成功 redirect page/index
 
 ## Three-Tier layer
@@ -67,3 +67,11 @@ app/
 - [ ] 單元測試範例 [mocha](https://mochajs.org/)
 - [ ] Optional Proxy 須測試轉導cookie
 - [ ] Dockerfile
+
+
+## Undo Migration & Seeder
+
+```bash
+npx sequelize-cli db:seed:undo:all
+npx sequelize-cli db:migrate:undo:all
+```

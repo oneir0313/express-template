@@ -2,25 +2,41 @@ const bcrypt = require('bcryptjs')
 const db = require('../repositories/models')
 const User = db.User
 
-// JWT
 const jwt = require('jsonwebtoken')
+const passport = require('../config/passport')
 
 const userService = {}
 
 userService.signIn = (req, res, next) => {
-  res.redirect('/page/index')
+  passport.authenticate('local', function (err, user, info) {
+    if (err) { return next(err) }
+    if (!user) {
+      return res.json({
+        code: 1,
+        message: info
+      })
+    }
+    req.logIn(user, function (err) {
+      if (err) { return next(err) }
+      return res.json({
+        code: 0,
+        message: '登入成功',
+        redirect: 'page/index'
+      })
+    })
+  })(req, res, next)
 }
 
-userService.test = (req, res, next) => {
+userService.jwt = (req, res, next) => {
   // 檢查必要資料
   if (!req.body.email || !req.body.password) {
     return res.json({ status: 'error', message: "required fields didn't exist" })
   }
   // 檢查 user 是否存在與密碼是否正確
-  const username = req.body.email
+  const username = req.body.account
   const password = req.body.password
 
-  User.findOne({ where: { email: username } })
+  User.findOne({ where: { account: username } })
     .then(user => {
       if (!user) return res.status(401).json({ status: 'error', message: 'no such user found' })
       if (!bcrypt.compareSync(password, user.password)) {

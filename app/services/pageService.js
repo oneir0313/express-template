@@ -4,6 +4,9 @@ const pageService = {
   },
   IndexPage: (req, res, next) => {
     res.render('index', { title: 'Express' })
+  },
+  testPage: (req, res, next) => {
+    res.render('test')
   }
 }
 

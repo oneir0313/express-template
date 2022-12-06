@@ -9,14 +9,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      email: {
-        type: Sequelize.STRING
+      account: {
+        allowNull: false,
+        type: Sequelize.STRING(64)
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
+      },
+      otaKey: {
+        type: Sequelize.STRING(128)
       },
       createdAt: {
         allowNull: false,
@@ -27,6 +29,7 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('Users', ['account'])
   },
   async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('Users')
