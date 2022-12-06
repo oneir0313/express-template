@@ -1,7 +1,5 @@
 # Express Template
 
-# README
-
 ## Initialize
 ```
 cd app
