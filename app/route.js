@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users')
 const listEndpoints = require('express-list-endpoints')
 const debug = require('debug')('app:routes')
 const passport = require('./config/passport')
+const flash = require('connect-flash')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use(logger(process.env.MORGAN_LOG_FORMAT))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(flash())
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'hello express',
