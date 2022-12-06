@@ -1,5 +1,6 @@
 const createError = require('http-errors')
 const express = require('express')
+const session = require('express-session')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -8,6 +9,7 @@ const pageRouter = require('./routes/page')
 const usersRouter = require('./routes/users')
 const listEndpoints = require('express-list-endpoints')
 const debug = require('debug')('app:routes')
+const passport = require('./config/passport')
 
 const app = express()
 
@@ -15,10 +17,23 @@ const app = express()
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+/**
+ * Middlewares, Passport, Session
+ */
+
 app.use(logger(process.env.MORGAN_LOG_FORMAT))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'hello express',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'development' }
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 // static setup
 app.use('/static', express.static(path.join(__dirname, 'public')))

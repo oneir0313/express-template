@@ -13,11 +13,11 @@ passport.use(new LocalStrategy(
     passReqToCallback: true
   },
   // authenticate user
-  (req, username, password, cb) => {
+  (req, username, password, done) => {
     User.findOne({ where: { email: username } }).then(user => {
-      if (!user) return cb(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤'))
-      if (!bcrypt.compareSync(password, user.password)) return cb(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤！'))
-      return cb(null, user)
+      if (!user) return done(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤'))
+      if (!bcrypt.compareSync(password, user.password)) return done(null, false, req.flash('error_messages', '帳號或密碼輸入錯誤！'))
+      return done(null, user)
     })
   }
 ))
@@ -33,22 +33,24 @@ passport.deserializeUser((id, cb) => {
 })
 
 // JWT
-const passportJWT = require('passport-jwt')
-const ExtractJwt = passportJWT.ExtractJwt
-const JwtStrategy = passportJWT.Strategy
+if (process.env.PASSPORT_STRATEGY === 'jwt') {
+  const passportJWT = require('passport-jwt')
+  const ExtractJwt = passportJWT.ExtractJwt
+  const JwtStrategy = passportJWT.Strategy
 
-const jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-jwtOptions.secretOrKey = process.env.JWT_SECRET
+  const jwtOptions = {}
+  jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+  jwtOptions.secretOrKey = process.env.JWT_SECRET
 
-const strategy = new JwtStrategy(jwtOptions, function (jwtPayload, next) {
-  User.findByPk(jwtPayload.id, {
-    include: []
-  }).then(user => {
-    if (!user) return next(null, false)
-    return next(null, user)
+  const strategy = new JwtStrategy(jwtOptions, function (jwtPayload, next) {
+    User.findByPk(jwtPayload.id, {
+      include: []
+    }).then(user => {
+      if (!user) return next(null, false)
+      return next(null, user)
+    })
   })
-})
-passport.use(strategy)
+  passport.use(strategy)
+}
 
 module.exports = passport

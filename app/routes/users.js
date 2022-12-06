@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const userService = require('../services/userService')
+const passport = require('../config/passport')
 
-/* GET users listing. */
-router.post('/users/signin', userService.signIn)
+/* 登入 */
+router.post('/users/signin', passport.authenticate('local', {
+  successRedirect: '/page/index',
+  failureRedirect: '/page/signin',
+  failureFlash: true
+}))
 
 module.exports = router

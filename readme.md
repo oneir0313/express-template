@@ -15,7 +15,8 @@ npm run start
 
 1. chrome -> http://localhost:9200/page/signin
 2. email/paswsowrd: root@example.com/12345678
-3. (TODO) 前端登入成功 redirect page/index
+3. 前端登入成功 redirect page/index
+
 ## Three-Tier layer
 * 表現層 (routes)
     * 用於顯示資訊和接收用戶輸入的資料，為用戶提供一種交互式操作的介面
@@ -66,6 +67,5 @@ app/
 ## Todos
 - [ ] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
 - [ ] 單元測試範例 [mocha](https://mochajs.org/)
-- [ ] Optional Proxy
+- [ ] Optional Proxy 須測試轉導cookie
 - [ ] Dockerfile
-git push -u dm3 master
