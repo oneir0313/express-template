@@ -21,7 +21,7 @@ userService.signIn = (req, res, next) => {
       return res.json({
         code: 0,
         message: '登入成功',
-        redirect: 'page/index'
+        redirect: 'index'
       })
     })
   })(req, res, next)
