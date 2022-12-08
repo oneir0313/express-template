@@ -27,6 +27,17 @@ userService.signIn = (req, res, next) => {
   })(req, res, next)
 }
 
+userService.signOut = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) { return next(err) }
+    res.json({
+      code: 0,
+      message: '登出成功',
+      redirect: 'index'
+    })
+  })
+}
+
 userService.jwt = (req, res, next) => {
   // 檢查必要資料
   if (!req.body.email || !req.body.password) {
@@ -58,6 +69,21 @@ userService.jwt = (req, res, next) => {
     .catch(err => {
       next(err)
     })
+}
+
+userService.session = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.json({
+      code: 0,
+      user: {
+        id: req.session.passport.user
+      }
+    })
+  }
+  return res.json({
+    code: 1,
+    message: '請先登入'
+  })
 }
 
 module.exports = userService

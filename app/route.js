@@ -1,14 +1,18 @@
 const createError = require('http-errors')
 const express = require('express')
 const session = require('express-session')
+const proxy = require('express-http-proxy')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const helmet = require('helmet')
 
 const pageRouter = require('./routes/page')
-const usersRouter = require('./routes/users')
+const apiRouter = require('./routes/api')
 const listEndpoints = require('express-list-endpoints')
 const debug = require('debug')('app:routes')
+const debugError = require('debug')('app:routes:error')
+
 const passport = require('./config/passport')
 const flash = require('connect-flash')
 
@@ -22,6 +26,8 @@ app.set('view engine', 'ejs')
  * Middlewares, Passport, Session
  */
 
+app.use(helmet())
+
 app.use(logger(process.env.MORGAN_LOG_FORMAT))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -30,21 +36,28 @@ app.use(flash())
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'hello express',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'development' }
+  cookie: { secure: app.get('env') === 'production', maxAge: 86400000 },
+  proxy: true
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 
 // static setup
 app.use('/static', express.static(path.join(__dirname, 'public')))
-
-// front-end route
 app.use('/', pageRouter)
 
-// back-end route
-app.use('/api', usersRouter)
+if (process.env.PROXY_TO === '') {
+  // back-end setting
+  app.set('trust proxy', 1)
+  app.use('/api', apiRouter)
+} else {
+  // front-end setting
+  app.use('/api', proxy(process.env.PROXY_TO, {
+    proxyReqPathResolver: (req) => {
+      return '/api' + req.url
+    }
+  }))
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,13 +67,17 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  const error = {
-    code: 1,
-    ...(req.app.get('env') === 'development' ? err : {})
+  const data = {
+    code: 1
+  }
+  data.Message = err.Message || err.message
+  if (req.app.get('env') === 'development') {
+    debugError(err)
+    data.stack = err.stack
   }
   // response the error
   res.status(err.status || 500)
-  res.json(error)
+  res.json(data)
 })
 
 debug(listEndpoints(app))
