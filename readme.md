@@ -11,9 +11,9 @@ npm run start
 
 ## Usage
 
-1. chrome -> http://localhost:9200/page/signin
+1. chrome -> http://localhost:9200/test (進到測試登入頁面)
 2. email/paswsowrd: admin/1qaz@WSX
-3. 前端登入成功 redirect page/index
+3. 前端登入`POST /api/user/signin`成功 redirect /index
 
 ## Three-Tier layer
 * 表現層 (routes)
@@ -32,6 +32,7 @@ npm run start
 app/
 ├── config/            # db吉passport設定
 ├── node_modules/      # npm函式庫
+├── libs/              # 共用函式庫, 中介層
 ├── public/            # 前端靜態資源
 │   ├── image/         # 圖片
 │   ├── javascript/    # js source code
@@ -41,6 +42,7 @@ app/
 │   ├── models/        # DB 模型
 │   ├── seeders/       # DB 初始化資料
 ├── route/             # 處裡server的路由
+├── server/            # 處理server框架設定
 ├── services/          # 處理業務邏輯
 │   ├── models/        # DB 模型
 │   ├── seeders/       # DB 初始化資料
@@ -61,11 +63,17 @@ app/
 * 檔案與資料夾命名規則採`小駝峰` 
     * Example: `services/userService`
 
+## ENV 設定
+
+* `SERVER_TYPE`:
+  * `FULLSTACK` 前端、後端一併啟動
+  * `WEB` 只啟用前端`ejs`跟靜態資源
+  * `API` 只啟用API服務
 
 ## Todos
 - [ ] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
 - [ ] 單元測試範例 [mocha](https://mochajs.org/)
-- [ ] Optional Proxy 須測試轉導cookie
+- [x] Optional Proxy 須測試轉導cookie
 - [ ] Dockerfile
 
 
