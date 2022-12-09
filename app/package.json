@@ -6,6 +6,7 @@
     "start": "node app.js",
     "debug": "node --inspect app.js",
     "lint": "eslint .",
+    
     "lint-fix": "eslint . --fix"
   },
   "dependencies": {
@@ -28,7 +29,8 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.26.0"
+    "sequelize": "^6.26.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "eslint": "^8.28.0",

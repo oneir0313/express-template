@@ -4,17 +4,14 @@ const session = require('express-session')
 const proxy = require('express-http-proxy')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-const logger = require('morgan')
 const helmet = require('helmet')
 
+const morganMiddleware = require('./libs/middlewares/morgan')
 const pageRouter = require('./routes/page')
 const apiRouter = require('./routes/api')
 const listEndpoints = require('express-list-endpoints')
-const debug = require('debug')('app:routes')
-const debugError = require('debug')('app:routes:error')
-
+const logger = require('./libs/logger')
 const passport = require('./config/passport')
-const flash = require('connect-flash')
 
 const app = express()
 
@@ -27,16 +24,16 @@ app.set('view engine', 'ejs')
  */
 
 app.use(helmet())
-
-app.use(logger(process.env.MORGAN_LOG_FORMAT))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(flash())
+app.use(morganMiddleware)
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'hello express',
   cookie: { secure: app.get('env') === 'production', maxAge: 86400000 },
+  resave: false,
+  saveUninitialized: false,
   proxy: true
 }))
 app.use(passport.initialize())
@@ -72,7 +69,7 @@ app.use(function (err, req, res, next) {
   }
   data.Message = err.Message || err.message
   if (req.app.get('env') === 'development') {
-    debugError(err)
+    logger.error(err)
     data.stack = err.stack
   }
   // response the error
@@ -80,6 +77,6 @@ app.use(function (err, req, res, next) {
   res.json(data)
 })
 
-debug(listEndpoints(app))
+logger.debug(listEndpoints(app))
 
 module.exports = app
