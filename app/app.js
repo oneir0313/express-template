@@ -4,7 +4,9 @@
  * Module dependencies.
  */
 require('dotenv').config()
-const app = require('./route')
+
+const serverType = process.env.SERVER_TYPE || 'fullstack'
+const app = require('./server/' + serverType.toLocaleLowerCase())
 const logger = require('./libs/logger')
 const http = require('http')
 
