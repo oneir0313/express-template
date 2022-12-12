@@ -49,7 +49,6 @@ app/
 ├── views/             # EJS 前端頁面
 ├── tests/             # 單元測試
 ├── package.json       # npm專案管理設定檔
-├── routes.js          # npm專案管理設定檔
 └── app.js             # server啟動初始化入口
 ```
 
