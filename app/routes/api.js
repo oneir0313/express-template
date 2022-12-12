@@ -3,16 +3,12 @@ const router = express.Router()
 const userService = require('../services/userService')
 const commonService = require('../services/commonService')
 
-/* Sign in */
+/* Users */
 router.post('/users/signin', userService.signIn)
-
-/* Sign Out */
 router.get('/users/signout', userService.signOut)
+router.get('/users/session', userService.session)
 
-/* Session */
-router.get('/session', userService.session)
-
-/* Health */
+/* Common */
 router.get('/health', commonService.health)
 
 module.exports = router

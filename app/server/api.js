@@ -38,7 +38,7 @@ app.use(passport.session())
 
 // back-end setting
 app.set('trust proxy', 1)
-app.use('/api', apiRouter)
+app.use('/api' + process.env.API_VERSION, apiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

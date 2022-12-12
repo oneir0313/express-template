@@ -46,7 +46,7 @@ app.use('/', pageRouter)
 if (process.env.PROXY_URL === '') {
   // back-end setting
   app.set('trust proxy', 1)
-  app.use('/api', apiRouter)
+  app.use('/api' + process.env.API_VERSION, apiRouter)
 } else {
   // front-end setting
   app.use('/api', proxy(process.env.PROXY_URL, {
