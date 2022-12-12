@@ -1,13 +1,13 @@
 const axios = require('axios')
 
 /**
- * 轉打後端API 當env {PROXY_TO} 有開啟時此function則啟動
+ * 轉打後端API 當env {PROXY_URL} 有開啟時此function則啟動
  */
 module.exports = async function (req, res, next) {
-  if (!process.env.PROXY_TO) {
+  if (!process.env.PROXY_URL) {
     next()
   }
-  const url = process.env.PROXY_TO + '/api/session'
+  const url = process.env.PROXY_URL + '/api/session'
   try {
     const response = await axios({
       headers: {

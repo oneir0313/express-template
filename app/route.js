@@ -43,13 +43,13 @@ app.use(passport.session())
 app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/', pageRouter)
 
-if (process.env.PROXY_TO === '') {
+if (process.env.PROXY_URL === '') {
   // back-end setting
   app.set('trust proxy', 1)
   app.use('/api', apiRouter)
 } else {
   // front-end setting
-  app.use('/api', proxy(process.env.PROXY_TO, {
+  app.use('/api', proxy(process.env.PROXY_URL, {
     proxyReqPathResolver: (req) => {
       return '/api' + req.url
     }

@@ -69,6 +69,7 @@ app/
   * `FULLSTACK` 前端、後端一併啟動
   * `WEB` 只啟用前端`ejs`跟靜態資源
   * `API` 只啟用API服務
+* `PROXY_URL`
 
 ## Todos
 - [ ] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
