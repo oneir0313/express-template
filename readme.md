@@ -70,6 +70,7 @@ app/
   * `WEB` 只啟用前端`ejs`跟靜態資源
   * `API` 只啟用API服務
 * `PROXY_URL`
+  * 當使用`FULLSTACK`跟`WEB`模式時，可搭配使用填入此參數將`/api/*`轉導至PROXY
 
 ## Todos
 - [ ] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
