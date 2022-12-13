@@ -4,6 +4,7 @@ const User = db.User
 
 const jwt = require('jsonwebtoken')
 const passport = require('../config/passport')
+const statusCode = require('../libs/statusCode')
 
 const userService = {}
 
@@ -11,15 +12,18 @@ userService.signIn = (req, res, next) => {
   passport.authenticate('local', function (err, user, info) {
     if (err) { return next(err) }
     if (!user) {
-      return res.json({
-        code: 1,
+      const unauthenticated = statusCode.unauthenticated
+      return res.status(unauthenticated.httpStatus).json({
+        code: unauthenticated.code,
+        codeNO: unauthenticated.codeNO,
         message: info
       })
     }
     req.logIn(user, function (err) {
       if (err) { return next(err) }
       return res.json({
-        code: 0,
+        code: statusCode.ok.code,
+        codeNO: statusCode.ok.codeNO,
         message: '登入成功',
         redirect: 'index'
       })
@@ -31,7 +35,8 @@ userService.signOut = (req, res, next) => {
   req.logout(function (err) {
     if (err) { return next(err) }
     res.json({
-      code: 0,
+      code: statusCode.ok.code,
+      codeNO: statusCode.ok.codeNO,
       message: '登出成功',
       redirect: 'signin'
     })
@@ -74,14 +79,17 @@ userService.jwt = (req, res, next) => {
 userService.session = (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.json({
-      code: 0,
+      code: statusCode.ok.code,
+      codeNO: statusCode.ok.codeNO,
       user: {
         id: req.session.passport.user
       }
     })
   }
-  return res.json({
-    code: 1,
+  const unauthenticated = statusCode.unauthenticated
+  return res.status(unauthenticated.httpStatus).json({
+    code: unauthenticated.code,
+    codeNO: unauthenticated.codeNO,
     message: '請先登入'
   })
 }

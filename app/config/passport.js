@@ -16,8 +16,8 @@ passport.use(new LocalStrategy(
   async (req, username, password, done) => {
     try {
       const user = await User.findOne({ where: { account: username } })
-      if (!user) return done(null, false, '帐号或密码输入错误！')
-      if (!bcrypt.compareSync(password, user.password)) return done(null, false, '帐号或密码输入错误！')
+      if (!user) return done(null, false, '帳號或密碼輸入錯誤！')
+      if (!bcrypt.compareSync(password, user.password)) return done(null, false, '帳號或密碼輸入錯誤！')
       return done(null, user)
     } catch (error) {
       return done(error)

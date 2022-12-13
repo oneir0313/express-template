@@ -9,6 +9,7 @@ const morganMiddleware = require('../libs/middlewares/morgan')
 const pageRouter = require('../routes/page')
 const listEndpoints = require('express-list-endpoints')
 const logger = require('../libs/logger')
+const errorHandler = require('../libs/middlewares/errorHandler')
 
 const app = express()
 
@@ -42,20 +43,7 @@ app.use(function (req, res, next) {
 })
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  const data = {
-    code: 1
-  }
-  data.Message = err.Message || err.message
-  if (req.app.get('env') === 'development') {
-    logger.error(err)
-    data.stack = err.stack
-  }
-  // response the error
-  res.status(err.status || 500)
-  res.json(data)
-})
+app.use(errorHandler)
 
 logger.debug(listEndpoints(app))
 
