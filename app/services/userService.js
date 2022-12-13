@@ -33,7 +33,7 @@ userService.signOut = (req, res, next) => {
     res.json({
       code: 0,
       message: '登出成功',
-      redirect: 'index'
+      redirect: 'signin'
     })
   })
 }
