@@ -15,15 +15,6 @@ npm run start
 2. email/paswsowrd: admin/1qaz@WSX
 3. 前端登入`POST /api/user/signin`成功 redirect /index
 
-## Three-Tier layer
-* 表現層 (routes)
-    * 用於顯示資訊和接收用戶輸入的資料，為用戶提供一種交互式操作的介面
-* 商業邏輯層 (services)
-    * 商業邏輯層在體系架構中的位置很關鍵，它處於資料存取層與表現層中，起到了數據交換中承上啟下的作用。由於層是一種弱耦合結構，層與層之間的依賴是向下的，底層對於上層而言是「無知」的，改變上層的設計對於其調用的底層而言沒有任何影響
-* 資料存取層 (repositories)
-    * 其功能主要是負責資料庫的訪問，可以訪問資料庫系統、二進位文件、文本文檔或是 XML 文檔。簡單說法就是實現對資料表的查詢、新增、刪除與修改的操作。
-
-
 
 ## 檔案結構
 ---
@@ -77,8 +68,14 @@ app/
 - [x] Optional Proxy 須測試轉導cookie
 - [ ] Dockerfile
 
+## Sequelize Migrations
 
-## Undo Migration & Seeder
+### Migration & Seeder
+```bash
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
+```
+### Undo Migration & Seeder
 
 ```bash
 npx sequelize-cli db:seed:undo:all
