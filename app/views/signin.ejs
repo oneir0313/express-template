@@ -13,8 +13,8 @@
     <h1>Log In</h1>
     <form action="/api/users/signin" method="POST">
       <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="text" name="email" class="form-control" placeholder="Email" required autofocus>
+        <label for="account" class="form-label">Account</label>
+        <input type="text" name="account" class="form-control" placeholder="Account" required autofocus>
       </div>
       <div class="mb-3">
         <label for="code" class="form-label">Password</label>
@@ -23,7 +23,7 @@
       <button type="submit" class="btn btn-primary">Log In</button>
     </form>
     <p class="mt-4">
-      Don't have an account? <a href="/">Sign Up</a>
+      Try to Log Out? <a href="/api/users/signout">Log Out</a>
     </p>
   </div>
 </body>

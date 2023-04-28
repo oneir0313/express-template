@@ -1,13 +1,9 @@
-const pageService = {
-  signInPage: (req, res, next) => {
-    res.render('signin')
-  },
-  IndexPage: (req, res, next) => {
-    res.render('index', { title: 'Express' })
-  },
-  testPage: (req, res, next) => {
-    res.render('test')
-  }
+const signInPage = (req, res, next) => {
+  res.render('signin')
 }
 
-module.exports = pageService
+const indexPage = (req, res, next) => {
+  res.render('index', { title: 'Express' })
+}
+
+module.exports = { signInPage, indexPage }

@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken')
 const passport = require('../config/passport')
 const statusCode = require('../libs/statusCode')
 
-const userService = {}
-
-userService.signIn = (req, res, next) => {
+const signIn = (req, res, next) => {
   passport.authenticate('local', function (err, user, info) {
     if (err) { return next(err) }
     if (!user) {
@@ -21,17 +19,12 @@ userService.signIn = (req, res, next) => {
     }
     req.logIn(user, function (err) {
       if (err) { return next(err) }
-      return res.json({
-        code: statusCode.ok.code,
-        codeNO: statusCode.ok.codeNO,
-        message: '登入成功',
-        redirect: 'index'
-      })
+      return res.render('index', { title: user.name })
     })
   })(req, res, next)
 }
 
-userService.signOut = (req, res, next) => {
+const signOut = (req, res, next) => {
   req.logout(function (err) {
     if (err) { return next(err) }
     res.json({
@@ -43,7 +36,7 @@ userService.signOut = (req, res, next) => {
   })
 }
 
-userService.jwt = (req, res, next) => {
+const signInByJwt = (req, res, next) => {
   // 檢查必要資料
   if (!req.body.email || !req.body.password) {
     return res.json({ status: 'error', message: "required fields didn't exist" })
@@ -76,7 +69,7 @@ userService.jwt = (req, res, next) => {
     })
 }
 
-userService.session = (req, res, next) => {
+const session = (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.json({
       code: statusCode.ok.code,
@@ -94,4 +87,4 @@ userService.session = (req, res, next) => {
   })
 }
 
-module.exports = userService
+module.exports = { signIn, signOut, signInByJwt, session }
