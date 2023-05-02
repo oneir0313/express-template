@@ -49,6 +49,10 @@ app.use(function (req, res, next) {
 // error handler
 app.use(errorHandler)
 
-logger.debug(listEndpoints(app))
+// list all endpoints
+logger.debug('list all routes:')
+listEndpoints(app).forEach(el => {
+  logger.debug(`route: ${el.path}, methods: ${el.methods.join(', ')}`)
+})
 
 module.exports = app

@@ -19,7 +19,7 @@ const signIn = (req, res, next) => {
     }
     req.logIn(user, function (err) {
       if (err) { return next(err) }
-      return res.render('index', { title: user.name })
+      return res.redirect('/index')
     })
   })(req, res, next)
 }

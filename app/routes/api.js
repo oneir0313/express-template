@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { signIn, signOut, session } = require('../services/userService')
-const { health } = require('../services/commonService')
+const { signIn, signOut, session } = require('../services/user')
+const { health } = require('../services/common')
 
 /* Users */
 router.post('/users/signin', signIn)

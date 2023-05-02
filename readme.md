@@ -11,7 +11,7 @@ npm run start
 
 ## Usage
 
-1. chrome -> http://localhost:9200/test (進到測試登入頁面)
+1. chrome -> http://localhost:9200/signin (進到測試登入頁面)
 2. email/paswsowrd: admin/1qaz@WSX
 3. 前端登入`POST /api/user/signin`成功 redirect /index
 

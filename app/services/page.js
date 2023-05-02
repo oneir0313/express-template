@@ -3,7 +3,7 @@ const signInPage = (req, res, next) => {
 }
 
 const indexPage = (req, res, next) => {
-  res.render('index', { title: 'Express' })
+  res.render('index', { title: 'Express Template', user: req.user.account })
 }
 
 module.exports = { signInPage, indexPage }
