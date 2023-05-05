@@ -66,7 +66,7 @@ app/
 - [X] Google驗證 & passport [OTP](https://blog.shahednasser.com/how-to-add-authentication-with-google-authenticator-in-node-js/)
 - [ ] 單元測試範例 [mocha](https://mochajs.org/)
 - [x] Optional Proxy 須測試轉導cookie
-- [ ] Dockerfile
+- [X] Dockerfile
 
 ## Sequelize Migrations
 
@@ -80,4 +80,10 @@ npx sequelize-cli db:seed:all
 ```bash
 npx sequelize-cli db:seed:undo:all
 npx sequelize-cli db:migrate:undo:all
+```
+
+## Docker build & run
+```bash
+docker build -t express-template .
+docker run -d --name=demo -e TZ="Asia/Taipei"  -p 9200:9200 --restart=always express-template
 ```
