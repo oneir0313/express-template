@@ -6,5 +6,12 @@ WORKDIR /app
 RUN apk add --no-cache tzdata \
   && apk --no-cache add curl \
   && npm ci --production 
-EXPOSE 9200 9229
+
+# default to port 9200 for node, and 9229 for debug
+ARG PORT=9200
+EXPOSE ${PORT} 9229
+
+HEALTHCHECK --interval=30s \
+  CMD curl --fail http://localhost:${PORT}/api/health || exit 1
+
 CMD ["npm","start"]
