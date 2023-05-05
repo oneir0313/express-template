@@ -1,0 +1,14 @@
+
+<p>Scan this QR Code in Google Authenticator</p>
+<img src="<%- qrImage %>"/>
+<p>- or enter this key manually -</p>
+<b><%= key %></b>
+<form action="/api/users/otpSignin" method="post">
+	<div>
+	<label>Code:</label>
+	<input type="text" name="code"/><br/>
+	</div>
+	<div>
+	<input type="submit" value="Submit"/>
+	</div>
+</form>
