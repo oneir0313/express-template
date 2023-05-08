@@ -3,7 +3,8 @@ module.exports = {
     browser: true,
     es2021: true,
     es6: true,
-    jquery: true
+    jquery: true,
+    mocha: true
   },
   extends: [
     'standard'
